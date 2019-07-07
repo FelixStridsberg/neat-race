@@ -47,6 +47,9 @@ public class RaceEvaluator {
 
             if (carEvaluator.evaluate())
                 progress = true;
+
+            if (carEvaluator.getCar().getLastProgress() > MAX_TICKS_WITH_NO_PROGRESS)
+                carEvaluator.getCar().setCrashed(true);
         }
 
         return progress;

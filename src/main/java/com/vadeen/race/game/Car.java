@@ -20,6 +20,8 @@ public class Car {
 
     private int checkpoint = 0;
 
+    private int lastProgress = 0;
+
     public Car(Color color) {
         this.color = color;
     }
@@ -86,5 +88,15 @@ public class Car {
 
         x += dx;
         y += dy;
+
+        lastProgress++;
+    }
+
+    public void progress() {
+        lastProgress = 0;
+    }
+
+    public int getLastProgress() {
+        return lastProgress;
     }
 }

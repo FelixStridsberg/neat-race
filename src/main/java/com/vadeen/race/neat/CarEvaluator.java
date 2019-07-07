@@ -40,6 +40,10 @@ public class CarEvaluator {
 
         boolean progress = raceContext.updateCar(car);
         genome.setFitness(car.getFitness());
+
+        if (progress)
+            car.progress();
+
         return progress;
     }
 }

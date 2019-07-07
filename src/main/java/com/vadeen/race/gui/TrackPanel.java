@@ -69,7 +69,10 @@ public class TrackPanel extends JPanel {
     }
 
     private void paintCrashedCar(Graphics2D g, Point p, Color c) {
+        int size = 3;
         g.setColor(c);
-        g.fillOval(p.x, p.y, 8, 8);
+        g.setStroke(new BasicStroke(2));
+        g.drawLine(p.x - size, p.y - size, p.x + size, p.y + size);
+        g.drawLine(p.x + size, p.y - size, p.x - size, p.y + size);
     }
 }
