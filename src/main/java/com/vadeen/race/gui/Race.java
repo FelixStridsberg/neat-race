@@ -26,15 +26,13 @@ import java.util.Collections;
 import java.util.List;
 
 public class Race {
-    private static int TARGET_FITNESS = 200;
-    private static int MAX_GENERATIONS = 500;
+    private static final int TARGET_FITNESS = 200;
+    private static final int MAX_GENERATIONS = 500;
 
     private static final List<Sensor> SENSORS = Arrays.asList(
-            new Sensor(1.6f),
             new Sensor(1.2f),
             new Sensor(0.8f), new Sensor(0.0f), new Sensor(-0.8f),
-            new Sensor(-1.2f),
-            new Sensor(-1.6f)
+            new Sensor(-1.2f)
     );
 
     private final Neat neat;
@@ -61,15 +59,15 @@ public class Race {
             Generation g = neat.evolve();
 
             // Show info about the new generation.
-            visualPanel.addGeneration(i, g);
+            visualPanel.addGeneration(g);
 
 
             // Simulate the best genome if it is better than the last simulation we saw.
             bestGenome = g.getBestGenome();
             if (bestGenome.getFitness() > lastFitness) {
                 raceContext.reset();
-                List<Genome> allGenomes = copyAllGenomes(g);
-                simulator.simulate(new RaceEvaluator(raceContext, allGenomes));
+                List<Species> allSpecies = copyAllSpecies(g);
+                simulator.simulate(new RaceEvaluator(raceContext, allSpecies));
                 lastFitness = bestGenome.getFitness();
             }
 
@@ -84,7 +82,8 @@ public class Race {
         printBestGenome(bestGenome);
 
         // Let the best genome shine by it self.
-        simulator.simulate(new RaceEvaluator(raceContext, Collections.singletonList(bestGenome)));
+        raceContext.reset();
+        simulator.simulate(new RaceEvaluator(raceContext, Collections.singletonList(new Species(1, bestGenome))));
     }
 
     public static void main(String[] args) throws IOException {
@@ -114,7 +113,7 @@ public class Race {
     }
 
     private static Neat createNEAT(GenomeEvaluator evaluator) {
-        Neat neat = Neat.create(evaluator, 7, 3);
+        Neat neat = Neat.create(evaluator, SENSORS.size(), 2);
 
         // Config mutator
         GenomeMutator mutator = neat.getMutator();
@@ -136,14 +135,17 @@ public class Race {
         return neat;
     }
 
-    private static List<Genome> copyAllGenomes(Generation gen) {
-        List<Genome> allGenomes = new ArrayList<>();
+    private static List<Species> copyAllSpecies(Generation gen) {
+        List<Species> allSpecies = new ArrayList<>();
         for (Species s : gen.getSpecies()) {
+            Species species = new Species(s.getId(), s.getReference());
             for (Genome g : s.getGenomes()) {
-                allGenomes.add(Genome.copy(g));
+                if (!s.getReference().equals(g))
+                    species.addGenome(Genome.copy(g));
             }
+            allSpecies.add(species);
         }
-        return allGenomes;
+        return allSpecies;
     }
 
     private void printBestGenome(Genome best) throws JsonProcessingException {

@@ -1,6 +1,6 @@
 package com.vadeen.race.neat;
 
-import com.vadeen.neat.genome.Genome;
+import com.vadeen.neat.species.Species;
 import com.vadeen.race.game.RaceContext;
 
 import java.util.List;
@@ -17,8 +17,8 @@ public class GenomeEvaluator implements com.vadeen.neat.genome.GenomeEvaluator {
     }
 
     @Override
-    public void evaluateAll(List<Genome> genomes) {
-        RaceEvaluator evaluator = new RaceEvaluator(raceContext, genomes);
+    public void evaluateAll(List<Species> species) {
+        RaceEvaluator evaluator = new RaceEvaluator(raceContext, species);
         evaluator.evaluateAll();
     }
 }

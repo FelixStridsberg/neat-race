@@ -7,6 +7,8 @@ public class Car {
     private static final float TURN_SPEED = 0.2f;
     private static final float MAX_SPEED = 5.0f;
 
+    private final Color color;
+
     private boolean crashed = false;
 
     private float fitness = 0.0f;
@@ -17,6 +19,14 @@ public class Car {
     private float speed = 0.0f;
 
     private int checkpoint = 0;
+
+    public Car(Color color) {
+        this.color = color;
+    }
+
+    public Color getColor() {
+        return color;
+    }
 
     public int getCurrentCheckpoint() {
         return checkpoint;

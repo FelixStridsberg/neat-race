@@ -2,9 +2,11 @@ package com.vadeen.race.neat;
 
 import com.vadeen.neat.genome.Genome;
 import com.vadeen.neat.genome.GenomePropagator;
+import com.vadeen.neat.species.Species;
 import com.vadeen.race.game.Car;
 import com.vadeen.race.game.RaceContext;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,19 +15,20 @@ import java.util.List;
  */
 public class RaceEvaluator {
 
+    private static final int TICK_TIMEOUT = 5000;
     private static final int MAX_TICKS_WITH_NO_PROGRESS = 100;
 
     private final RaceContext raceContext;
     private List<CarEvaluator> carEvaluators;
 
-    public RaceEvaluator(RaceContext raceContext, List<Genome> genomes) {
+    public RaceEvaluator(RaceContext raceContext, List<Species> species) {
         this.raceContext = raceContext;
-        this.carEvaluators = createCarEvaluators(genomes);
+        this.carEvaluators = createCarEvaluators(species);
     }
 
     public void evaluateAll() {
         int noProgress = 0;
-        while (noProgress < MAX_TICKS_WITH_NO_PROGRESS) {
+        for (int i = 0; i < TICK_TIMEOUT && noProgress < MAX_TICKS_WITH_NO_PROGRESS; i++) {
             if (tick()) {
                 noProgress = 0;
             }
@@ -49,17 +52,21 @@ public class RaceEvaluator {
         return progress;
     }
 
-    private List<CarEvaluator> createCarEvaluators(List<Genome> genomes) {
+    private List<CarEvaluator> createCarEvaluators(List<Species> species) {
         List<CarEvaluator> carEvaluators = new ArrayList<>();
 
         // Create propagators and add cars to track.
-        for (Genome genome : genomes) {
-            Car car = new Car();
-            GenomePropagator propagator = new GenomePropagator(genome);
-            CarEvaluator carEvaluator = new CarEvaluator(raceContext, car, genome, propagator);
+        for (Species s : species) {
+            Color speciesColor = Color.getHSBColor((s.getId()/20.0f)%1.0f, 1.0f, 0.8f);
 
-            carEvaluators.add(carEvaluator);
-            raceContext.addCar(car);
+            for (Genome g : s.getGenomes()) {
+                Car car = new Car(speciesColor);
+                GenomePropagator propagator = new GenomePropagator(g);
+                CarEvaluator carEvaluator = new CarEvaluator(raceContext, car, g, propagator);
+
+                carEvaluators.add(carEvaluator);
+                raceContext.addCar(car);
+            }
         }
         return carEvaluators;
     }

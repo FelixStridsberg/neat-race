@@ -49,16 +49,16 @@ public class TrackPanel extends JPanel {
             p.translate(-13, -4);
 
             if (c.isCrashed())
-                paintCrashedCar(g2c, p);
+                paintCrashedCar(g2c, p, c.getColor());
             else
-                paintCar(g2c, p);
+                paintCar(g2c, p, c.getColor());
 
             g2c.dispose();
         }
     }
 
-    private void paintCar(Graphics2D g, Point p) {
-        g.setColor(Color.YELLOW);
+    private void paintCar(Graphics2D g, Point p, Color c) {
+        g.setColor(c);
         g.fillRect(p.x, p.y, 26, 9);
         g.setColor(Color.BLACK);
         g.fillRect(p.x + 17, p.y + 1, 3, 7);
@@ -68,14 +68,8 @@ public class TrackPanel extends JPanel {
         g.fillRect(p.x, p.y + 6, 1, 2);
     }
 
-    private void paintCrashedCar(Graphics2D g, Point p) {
-        g.setColor(new Color(99, 99, 99 , 200));
-        g.fillRect(p.x, p.y, 26, 9);
-        g.setColor(Color.BLACK);
-        g.fillRect(p.x + 17, p.y + 1, 3, 7);
-        g.fillRect(p.x + 4, p.y + 1, 2, 7);
-        g.setColor(Color.RED);
-        g.fillRect(p.x, p.y + 1, 1, 2);
-        g.fillRect(p.x, p.y + 6, 1, 2);
+    private void paintCrashedCar(Graphics2D g, Point p, Color c) {
+        g.setColor(c);
+        g.fillOval(p.x, p.y, 8, 8);
     }
 }
