@@ -2,6 +2,7 @@ package com.vadeen.race.neat;
 
 import com.vadeen.neat.genome.Genome;
 import com.vadeen.neat.genome.GenomePropagator;
+import com.vadeen.neat.gui.Gui;
 import com.vadeen.neat.species.Species;
 import com.vadeen.race.game.Car;
 import com.vadeen.race.game.RaceContext;
@@ -60,7 +61,7 @@ public class RaceEvaluator {
 
         // Create propagators and add cars to track.
         for (Species s : species) {
-            Color speciesColor = Color.getHSBColor((s.getId()/20.0f)%1.0f, 1.0f, 0.8f);
+            Color speciesColor = Gui.colorOfId(s.getId());
 
             for (Genome g : s.getGenomes()) {
                 Car car = new Car(speciesColor);

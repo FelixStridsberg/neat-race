@@ -26,7 +26,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class Race {
-    private static final int TARGET_FITNESS = 200;
+    private static final int TARGET_FITNESS = 500;
     private static final int MAX_GENERATIONS = 500;
 
     private static final List<Sensor> SENSORS = Arrays.asList(
@@ -61,9 +61,9 @@ public class Race {
             // Show info about the new generation.
             visualPanel.addGeneration(g);
 
-
             // Simulate the best genome if it is better than the last simulation we saw.
             bestGenome = g.getBestGenome();
+
             if (bestGenome.getFitness() > lastFitness) {
                 raceContext.reset();
                 List<Species> allSpecies = copyAllSpecies(g);
@@ -114,6 +114,8 @@ public class Race {
 
     private static Neat createNEAT(GenomeEvaluator evaluator) {
         Neat neat = Neat.create(evaluator, SENSORS.size(), 2);
+
+        neat.getGenerationFactory().setPopulationSize(50);
 
         // Config mutator
         GenomeMutator mutator = neat.getMutator();
