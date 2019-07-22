@@ -6,23 +6,28 @@
 
     <groupId>com.vadeen</groupId>
     <artifactId>neat-race</artifactId>
-    <version>0.2.0</version>
+    <version>0.3.0-SNAPSHOT</version>
 
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
+        <encoding>UTF-8</encoding>
+        <project.build.sourceEncoding>${encoding}</project.build.sourceEncoding>
+        <project.build.outputEncoding>${encoding}</project.build.outputEncoding>
+        <archetype.encoding>${encoding}</archetype.encoding>
     </properties>
+
 
     <dependencies>
         <dependency>
             <groupId>com.vadeen</groupId>
             <artifactId>neat</artifactId>
-            <version>0.2.0</version>
+            <version>0.3.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.vadeen</groupId>
             <artifactId>neat-gui</artifactId>
-            <version>0.2.0</version>
+            <version>0.3.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
