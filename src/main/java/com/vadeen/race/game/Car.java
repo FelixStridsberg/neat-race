@@ -3,9 +3,9 @@ package com.vadeen.race.game;
 import java.awt.*;
 
 public class Car {
-    private static final float ACCELERATION = 8.5f;
-    private static final float TURN_SPEED = 0.2f;
-    private static final float MAX_SPEED = 5.0f;
+    private static final float ACCELERATION = 1.5f;
+    private static final float TURN_SPEED = 0.1f;
+    private static final float MAX_SPEED = 2.5f;
 
     private final Color color;
 

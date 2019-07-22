@@ -14,15 +14,20 @@ public class RaceSimulator {
     private static final int MAX_TICKS_WITH_NO_PROGRESS = 100;
 
     public TrackPanel trackPanel;
+    private RaceContext raceContext;
+    private JFrame window;
 
     public RaceSimulator(JFrame window, RaceContext context) {
-        trackPanel = new TrackPanel(context.getTrack());
-
+        trackPanel = new TrackPanel(context);
+        this.raceContext = context;
         window.add(trackPanel);
         window.setVisible(true);
+        this.window = window;
     }
 
     public void simulate(RaceEvaluator evaluator) {
+        raceContext.reset();
+
         int noProgress = 0;
         while (noProgress < MAX_TICKS_WITH_NO_PROGRESS) {
             if (evaluator.tick()) {
@@ -32,7 +37,7 @@ public class RaceSimulator {
                 noProgress++;
             }
 
-            trackPanel.repaint();
+            window.repaint();
             Toolkit.getDefaultToolkit().sync();
 
             try {

@@ -28,6 +28,8 @@ public class RaceEvaluator {
     }
 
     public void evaluateAll() {
+        raceContext.reset();
+
         int noProgress = 0;
         for (int i = 0; i < TICK_TIMEOUT && noProgress < MAX_TICKS_WITH_NO_PROGRESS; i++) {
             if (tick()) {

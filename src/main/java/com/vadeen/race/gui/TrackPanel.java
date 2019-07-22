@@ -1,41 +1,56 @@
 package com.vadeen.race.gui;
 
+import com.vadeen.neat.gui.visualization.VisualPanel;
 import com.vadeen.race.game.Car;
-import com.vadeen.race.game.Track;
+import com.vadeen.race.game.RaceContext;
 
-import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 
 /**
- * Graphic representation of the track and cars.
+ * Graphic representation of the context and cars.
  */
-public class TrackPanel extends JPanel {
+public class TrackPanel extends VisualPanel {
 
-    private final Track track;
+    private final RaceContext context;
 
-    public TrackPanel(Track track) {
+    public TrackPanel(RaceContext context) {
         super();
-        this.track = track;
+        this.context = context;
+    }
 
-        setBackground(null);
+    @Override
+    public float getAspectRatio() {
+        return 4/3f;
+    }
+
+    @Override
+    public void repaint() {
+        super.repaint();
     }
 
     @Override
     public void paintComponent(Graphics g) {
-        paintBackground(g);
-        paintCars(g);
+        Graphics2D g2 = (Graphics2D)g;
+
+        // Scale
+        float scale = getWidth()/800.0f;
+        g2.scale(scale, scale);
+
+        // Draw
+        paintBackground(g2);
+        paintCars(g2);
     }
 
     private void paintBackground(Graphics g) {
-        g.drawImage(track.getBackground(), 0, 0, null);
+        g.drawImage(context.getTrack().getBackground(), 0, 0, null);
     }
 
 
     private void paintCars(Graphics g) {
         Graphics2D g2 = (Graphics2D)g;
 
-        List<Car> cars = track.getCars();
+        List<Car> cars = context.getTrack().getCars();
         for (int i = 0; i < cars.size(); i++) {
             Car c = cars.get(i);
 
