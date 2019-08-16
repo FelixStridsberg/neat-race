@@ -1,17 +1,15 @@
 package com.vadeen.race.gui;
 
 import com.vadeen.neat.Neat;
-import com.vadeen.neat.generation.Generation;
 import com.vadeen.neat.genome.GenomeComparator;
 import com.vadeen.neat.genome.GenomeMutator;
 import com.vadeen.neat.gui.NeatGui;
-import com.vadeen.neat.gui.visualization.Visualizer;
 import com.vadeen.neat.species.SpeciesFactory;
 import com.vadeen.race.game.RaceContext;
 import com.vadeen.race.game.Sensor;
 import com.vadeen.race.game.Track;
 import com.vadeen.race.neat.GenomeEvaluator;
-import com.vadeen.race.neat.RaceEvaluator;
+import com.vadeen.race.neat.Visualizer;
 
 import java.io.File;
 import java.io.IOException;
@@ -36,27 +34,7 @@ public class Race {
 
     private void run() {
         TrackPanel tp = new TrackPanel(raceContext);
-
-        Visualizer visualizer = new Visualizer() {
-            private RaceEvaluator evaluator;
-
-            @Override
-            public int getFramesPerSecond() {
-                return 60;
-            }
-
-            @Override
-            public void setup(Generation generation) {
-                raceContext.reset();
-                evaluator = new RaceEvaluator(raceContext, generation.getSpecies());
-            }
-
-            @Override
-            public boolean tick() {
-                evaluator.tick();
-                return true;
-            }
-        };
+        Visualizer visualizer = new Visualizer(raceContext);
 
         NeatGui gui = new NeatGui(neat, visualizer, tp);
         gui.run();
@@ -97,4 +75,5 @@ public class Race {
 
         return neat;
     }
+
 }
