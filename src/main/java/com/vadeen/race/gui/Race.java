@@ -41,7 +41,7 @@ public class Race {
     }
 
     public static void main(String[] args) throws IOException {
-        Track track = Track.fromFiles(new File("src/main/resources/tracks"), "pecker");
+        Track track = Track.fromResources("pecker");
         RaceContext raceContext = new RaceContext(track, SENSORS);
 
         GenomeEvaluator evaluator = new GenomeEvaluator(raceContext);
