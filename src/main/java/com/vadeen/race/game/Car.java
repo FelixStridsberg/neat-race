@@ -3,31 +3,26 @@ package com.vadeen.race.game;
 import java.awt.*;
 
 /**
- * A car is represented as at dot that has a speed and a rotation.
+ * A car is represented as a dot that has a speed and a rotation.
  * We don't care about the size of the car, we only check if the point (center of the car) is within the bounds of the
  * track.
  *
  * @todo Remove gui stuff from here.
  */
 public class Car {
-    private final CarProperties properties;
     private final Color color;
+    private final CarProperties properties;
+    private final CarPosition position;
 
     private boolean crashed = false;
-
     private float fitness = 0.0f;
-
-    private float x = 285.0f;
-    private float y = 115.0f;
-    private float rotation = 0.0f;
     private float speed = 0.0f;
-
     private int checkpoint = 0;
-
     private int lastProgress = 0;
 
-    public Car(Color color, CarProperties properties) {
+    public Car(Color color, CarPosition position, CarProperties properties) {
         this.color = color;
+        this.position = position;
         this.properties = properties;
     }
 
@@ -56,11 +51,11 @@ public class Car {
     }
 
     public Point getPosition() {
-        return new Point((int)x, (int)y);
+        return new Point((int)position.getX(), (int)position.getY());
     }
 
     public float getRotation() {
-        return rotation;
+        return position.getRotation();
     }
 
     public void setCrashed(boolean crashed) {
@@ -81,18 +76,19 @@ public class Car {
         if (speed < 0.1)
             return;
 
-        rotation += properties.getTurnSpeed() * value;
+        position.addRotation((float)(properties.getTurnSpeed() * value));
     }
 
     public void update() {
         if (crashed)
             return;
 
+        float rotation = position.getRotation();
         float dx = (float)(speed * Math.cos(rotation));
         float dy = (float)(speed * Math.sin(rotation));
 
-        x += dx;
-        y += dy;
+        position.addX(dx);
+        position.addY(dy);
 
         lastProgress++;
     }

@@ -1,4 +1,9 @@
 {
+  "startPosition": {
+    "x": 285.0,
+    "y": 115.0,
+    "rotation": 0.0
+  },
   "checkpoints": [
     {"size": 100, "x":254.0, "y":113.0},
     {"size": 100, "x":345.0, "y":115.0},

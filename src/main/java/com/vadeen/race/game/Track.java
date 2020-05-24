@@ -17,19 +17,21 @@ public class Track {
     private final Image background;
     private final Polygon bounds;
     private final List<Checkpoint> checkpoints;
-
+    private final CarPosition startPosition;
     private final List<Car> cars = new ArrayList<>();
 
     public static Track fromResources(String name) throws IOException {
         TrackDefinition trackDefinition = TrackDefinition.fromResource(name);
         Image background = trackDefinition.getBackground();
+        CarPosition startPosition = trackDefinition.getStartPosition();
         Polygon bounds = trackDefinition.getBounds();
         List<Checkpoint> checkpoints = trackDefinition.getCheckpoints();
-        return new Track(background, bounds, checkpoints);
+        return new Track(background, startPosition, bounds, checkpoints);
     }
 
-    public Track(Image background, Polygon bounds, List<Checkpoint> checkpoints) {
+    public Track(Image background, CarPosition startPosition, Polygon bounds, List<Checkpoint> checkpoints) {
         this.background = background;
+        this.startPosition = startPosition;
         this.bounds = bounds;
         this.checkpoints = checkpoints;
     }
@@ -81,5 +83,9 @@ public class Track {
 
     public Polygon getBounds() {
         return bounds;
+    }
+
+    public CarPosition getStartPosition() {
+        return new CarPosition(startPosition);
     }
 }

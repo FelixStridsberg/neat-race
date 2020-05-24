@@ -1,6 +1,8 @@
 package com.vadeen.race.io;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.vadeen.race.game.CarPosition;
 import com.vadeen.race.game.Checkpoint;
 
 import java.awt.*;
@@ -11,6 +13,17 @@ import java.util.List;
 public class TrackDefinitionLoader extends ResourceLoader {
 
     private static final String RESOURCE_PATH = "tracks/";
+
+    private static class CarPositionJson {
+        @JsonProperty
+        private float x;
+
+        @JsonProperty
+        private float y;
+
+        @JsonProperty
+        private float rotation;
+    }
 
     private static class CheckpointJson {
         @JsonProperty
@@ -24,6 +37,9 @@ public class TrackDefinitionLoader extends ResourceLoader {
     }
 
     private static class TrackJson {
+        @JsonProperty
+        private CarPositionJson startPosition;
+
         @JsonProperty
         private List<Point> vector;
 
@@ -48,7 +64,10 @@ public class TrackDefinitionLoader extends ResourceLoader {
             checkpoints.add(new Checkpoint(c.x, c.y, c.size));
         }
 
+        float rotation = (float)Math.toRadians(json.startPosition.rotation);
+        CarPosition startPosition = new CarPosition(json.startPosition.x, json.startPosition.y, rotation);
+
         Image backgroundImage = loadImage(name+ ".png");
-        return new TrackDefinition(backgroundImage, bounds, checkpoints);
+        return new TrackDefinition(backgroundImage, startPosition, bounds, checkpoints);
     }
 }
