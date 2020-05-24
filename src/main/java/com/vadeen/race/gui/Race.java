@@ -11,7 +11,7 @@ import com.vadeen.race.game.Sensor;
 import com.vadeen.race.game.Track;
 import com.vadeen.race.io.Settings;
 import com.vadeen.race.neat.GenomeEvaluator;
-import com.vadeen.race.neat.Visualizer;
+import com.vadeen.race.neat.RaceVisualizer;
 
 import java.io.IOException;
 import java.util.List;
@@ -42,7 +42,7 @@ public class Race {
 
     private void run() {
         TrackPanel tp = new TrackPanel(raceContext);
-        Visualizer visualizer = new Visualizer(raceContext);
+        RaceVisualizer visualizer = new RaceVisualizer(raceContext);
 
         NeatGui gui = new NeatGui(neat, visualizer, tp);
         gui.run();

@@ -1,14 +1,14 @@
 package com.vadeen.race.neat;
 
 import com.vadeen.neat.generation.Generation;
+import com.vadeen.neat.gui.visualization.Visualizer;
 import com.vadeen.race.game.RaceContext;
-import com.vadeen.race.gui.Race;
 
-public class Visualizer implements com.vadeen.neat.gui.visualization.Visualizer {
+public class RaceVisualizer implements Visualizer {
     private final RaceContext raceContext;
     private RaceEvaluator evaluator;
 
-    public Visualizer(RaceContext raceContext) {
+    public RaceVisualizer(RaceContext raceContext) {
         this.raceContext = raceContext;
     }
 

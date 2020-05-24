@@ -1,7 +1,6 @@
 package com.vadeen.race.io;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.vadeen.race.game.CarPosition;
 import com.vadeen.race.game.Checkpoint;
 

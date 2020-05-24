@@ -8,7 +8,7 @@ import java.util.Objects;
  */
 public class Checkpoint extends Point {
 
-    private float size;
+    private final float size;
 
     public Checkpoint(int x, int y, float size) {
         super(x, y);

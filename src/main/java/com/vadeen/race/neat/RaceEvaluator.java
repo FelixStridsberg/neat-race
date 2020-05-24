@@ -20,7 +20,7 @@ public class RaceEvaluator {
     private static final int MAX_TICKS_WITH_NO_PROGRESS = 100;
 
     private final RaceContext raceContext;
-    private List<CarEvaluator> carEvaluators;
+    private final List<CarEvaluator> carEvaluators;
 
     public RaceEvaluator(RaceContext raceContext, List<Species> species) {
         this.raceContext = raceContext;
@@ -59,7 +59,7 @@ public class RaceEvaluator {
     }
 
     private List<CarEvaluator> createCarEvaluators(List<Species> species) {
-        List<CarEvaluator> carEvaluators = new ArrayList<>();
+        List<CarEvaluator> evaluators = new ArrayList<>();
 
         // Create propagators and add cars to track.
         for (Species s : species) {
@@ -70,10 +70,10 @@ public class RaceEvaluator {
                 GenomePropagator propagator = new GenomePropagator(g);
                 CarEvaluator carEvaluator = new CarEvaluator(raceContext, car, g, propagator);
 
-                carEvaluators.add(carEvaluator);
+                evaluators.add(carEvaluator);
                 raceContext.addCar(car);
             }
         }
-        return carEvaluators;
+        return evaluators;
     }
 }

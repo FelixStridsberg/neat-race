@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class CarEvaluator {
 
-    private RaceContext raceContext;
+    private final RaceContext raceContext;
     private final Car car;
     private final Genome genome;
     private final GenomePropagator propagator;

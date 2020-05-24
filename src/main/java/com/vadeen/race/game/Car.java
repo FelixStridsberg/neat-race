@@ -38,10 +38,6 @@ public class Car {
         this.checkpoint = checkpoint;
     }
 
-    public float getSpeed() {
-        return speed;
-    }
-
     public float getFitness() {
         return fitness;
     }
