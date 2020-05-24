@@ -22,7 +22,7 @@ public class Race {
 
     public static void main(String[] args) throws IOException {
         Settings settings = Settings.fromResources();
-        Track track = Track.fromResources("pecker");
+        Track track = Track.fromResources(settings.getTrackName());
 
         List<Sensor> sensors = settings.getSensors();
         CarProperties carProperties = settings.getCarProperties();

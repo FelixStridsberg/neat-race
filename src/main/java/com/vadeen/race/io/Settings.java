@@ -10,15 +10,17 @@ public class Settings {
 
     private final List<Sensor> sensors;
     private final CarProperties carProperties;
+    private final String trackName;
 
     public static Settings fromResources() throws IOException {
         SettingsLoader resourceLoader = new SettingsLoader();
         return resourceLoader.loadSettings();
     }
 
-    public Settings(List<Sensor> sensors, CarProperties carProperties) {
+    public Settings(List<Sensor> sensors, CarProperties carProperties, String trackName) {
         this.sensors = sensors;
         this.carProperties = carProperties;
+        this.trackName = trackName;
     }
 
     public List<Sensor> getSensors() {
@@ -27,5 +29,9 @@ public class Settings {
 
     public CarProperties getCarProperties() {
         return carProperties;
+    }
+
+    public String getTrackName() {
+        return trackName;
     }
 }

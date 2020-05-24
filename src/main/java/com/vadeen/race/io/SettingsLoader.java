@@ -12,6 +12,9 @@ public class SettingsLoader extends ResourceLoader {
 
     private static class SettingsJson {
         @JsonProperty
+        private String trackName;
+
+        @JsonProperty
         private List<Float> sensors;
 
         @JsonProperty
@@ -45,6 +48,6 @@ public class SettingsLoader extends ResourceLoader {
         CarProperties carProperties = new CarProperties(
                 carPropJson.acceleration, carPropJson.turnSpeed, carPropJson.maxSpeed);
 
-        return new Settings(sensors, carProperties);
+        return new Settings(sensors, carProperties, json.trackName);
     }
 }
