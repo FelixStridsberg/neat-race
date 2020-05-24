@@ -66,7 +66,7 @@ public class RaceEvaluator {
             Color speciesColor = Gui.colorOfId(s.getId());
 
             for (Genome g : s.getGenomes()) {
-                Car car = new Car(speciesColor);
+                Car car = new Car(speciesColor, raceContext.getCarProperties());
                 GenomePropagator propagator = new GenomePropagator(g);
                 CarEvaluator carEvaluator = new CarEvaluator(raceContext, car, g, propagator);
 

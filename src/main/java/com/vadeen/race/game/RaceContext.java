@@ -10,10 +10,12 @@ public class RaceContext {
 
     private final Track track;
     private final List<Sensor> sensors;
+    private final CarProperties carProperties;
 
-    public RaceContext(Track track, List<Sensor> sensors) {
+    public RaceContext(Track track, List<Sensor> sensors, CarProperties carProperties) {
         this.track = track;
         this.sensors = sensors;
+        this.carProperties = carProperties;
     }
 
     // Reset race for a new evaluation.
@@ -35,6 +37,10 @@ public class RaceContext {
 
     public Track getTrack() {
         return track;
+    }
+
+    public CarProperties getCarProperties() {
+        return carProperties;
     }
 
     public List<Float> getSensorValues(Car car) {

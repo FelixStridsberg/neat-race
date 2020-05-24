@@ -1,6 +1,7 @@
 package com.vadeen.race.io;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.vadeen.race.game.CarProperties;
 import com.vadeen.race.game.Sensor;
 
 import java.io.IOException;
@@ -12,6 +13,20 @@ public class SettingsLoader extends ResourceLoader {
     private static class SettingsJson {
         @JsonProperty
         private List<Float> sensors;
+
+        @JsonProperty
+        private CarPropertiesJson carProperties;
+    }
+
+    private static class CarPropertiesJson {
+        @JsonProperty
+        private float acceleration;
+
+        @JsonProperty
+        private float turnSpeed;
+
+        @JsonProperty
+        private float maxSpeed;
     }
 
     public SettingsLoader() {
@@ -26,6 +41,10 @@ public class SettingsLoader extends ResourceLoader {
             sensors.add(new Sensor(angle));
         }
 
-        return new Settings(sensors);
+        CarPropertiesJson carPropJson = json.carProperties;
+        CarProperties carProperties = new CarProperties(
+                carPropJson.acceleration, carPropJson.turnSpeed, carPropJson.maxSpeed);
+
+        return new Settings(sensors, carProperties);
     }
 }

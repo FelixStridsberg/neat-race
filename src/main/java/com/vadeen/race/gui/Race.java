@@ -5,6 +5,7 @@ import com.vadeen.neat.genome.GenomeComparator;
 import com.vadeen.neat.genome.GenomeMutator;
 import com.vadeen.neat.gui.NeatGui;
 import com.vadeen.neat.species.SpeciesFactory;
+import com.vadeen.race.game.CarProperties;
 import com.vadeen.race.game.RaceContext;
 import com.vadeen.race.game.Sensor;
 import com.vadeen.race.game.Track;
@@ -24,7 +25,8 @@ public class Race {
         Track track = Track.fromResources("pecker");
 
         List<Sensor> sensors = settings.getSensors();
-        RaceContext raceContext = new RaceContext(track, sensors);
+        CarProperties carProperties = settings.getCarProperties();
+        RaceContext raceContext = new RaceContext(track, sensors, carProperties);
 
         GenomeEvaluator evaluator = new GenomeEvaluator(raceContext);
         Neat neat = createNEAT(evaluator, sensors.size());

@@ -10,10 +10,7 @@ import java.awt.*;
  * @todo Remove gui stuff from here.
  */
 public class Car {
-    private static final float ACCELERATION = 1.5f;
-    private static final float TURN_SPEED = 0.1f;
-    private static final float MAX_SPEED = 2.5f;
-
+    private final CarProperties properties;
     private final Color color;
 
     private boolean crashed = false;
@@ -29,8 +26,9 @@ public class Car {
 
     private int lastProgress = 0;
 
-    public Car(Color color) {
+    public Car(Color color, CarProperties properties) {
         this.color = color;
+        this.properties = properties;
     }
 
     public Color getColor() {
@@ -74,8 +72,8 @@ public class Car {
     }
 
     public void accelerate(double value) {
-        speed += ACCELERATION * value;
-        speed = Math.min(speed, MAX_SPEED);
+        speed += properties.getAcceleration() * value;
+        speed = Math.min(speed, properties.getMaxSpeed());
         speed = Math.max(speed, 0);         // Do not allow reverse
     }
 
@@ -83,7 +81,7 @@ public class Car {
         if (speed < 0.1)
             return;
 
-        rotation += TURN_SPEED * value;
+        rotation += properties.getTurnSpeed() * value;
     }
 
     public void update() {
