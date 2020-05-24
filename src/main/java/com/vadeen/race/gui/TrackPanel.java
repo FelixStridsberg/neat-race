@@ -25,11 +25,6 @@ public class TrackPanel extends VisualPanel {
     }
 
     @Override
-    public void repaint() {
-        super.repaint();
-    }
-
-    @Override
     public void paintComponent(Graphics g) {
         Graphics2D g2 = (Graphics2D)g;
 
@@ -51,11 +46,9 @@ public class TrackPanel extends VisualPanel {
         Graphics2D g2 = (Graphics2D)g;
 
         List<Car> cars = context.getTrack().getCars();
-        for (int i = 0; i < cars.size(); i++) {
-            Car c = cars.get(i);
-
+        for (Car c : cars) {
             Point p = c.getPosition();
-            Graphics2D g2c = (Graphics2D)g2.create();
+            Graphics2D g2c = (Graphics2D) g2.create();
             g2c.rotate(c.getRotation(), p.x, p.y);
 
             g2c.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);

@@ -3,6 +3,9 @@ package com.vadeen.race.game;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The race context contains everything needed for evaluating and simulating a race.
+ */
 public class RaceContext {
 
     private final Track track;

@@ -7,6 +7,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The track contains information about the boundaries, checkpoints and a background image.
+ * The checkpoints consists of points in the middle of the track. A radius is added to the points to make them fill the
+ * track. It do not matter if the checkpoints overlap a bit.
+ */
 public class Track {
 
     private final Image background;
@@ -27,10 +32,6 @@ public class Track {
         this.background = background;
         this.bounds = bounds;
         this.checkpoints = checkpoints;
-    }
-
-    public List<Checkpoint> getCheckpoints() {
-        return checkpoints;
     }
 
     public void addCar(Car car) {

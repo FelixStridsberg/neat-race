@@ -19,6 +19,20 @@ public class Race {
     private final Neat neat;
     private final RaceContext raceContext;
 
+    public static void main(String[] args) throws IOException {
+        Settings settings = Settings.fromResources();
+        Track track = Track.fromResources("pecker");
+
+        List<Sensor> sensors = settings.getSensors();
+        RaceContext raceContext = new RaceContext(track, sensors);
+
+        GenomeEvaluator evaluator = new GenomeEvaluator(raceContext);
+        Neat neat = createNEAT(evaluator, sensors.size());
+
+        Race race = new Race(neat, raceContext);
+        race.run();
+    }
+
     private Race(Neat neat, RaceContext raceContext) {
         this.neat = neat;
         this.raceContext = raceContext;
@@ -30,20 +44,6 @@ public class Race {
 
         NeatGui gui = new NeatGui(neat, visualizer, tp);
         gui.run();
-    }
-
-    public static void main(String[] args) throws IOException {
-        Settings settings = Settings.fromResources();
-        List<Sensor> sensors = settings.getSensors();
-
-        Track track = Track.fromResources("pecker");
-        RaceContext raceContext = new RaceContext(track, sensors);
-
-        GenomeEvaluator evaluator = new GenomeEvaluator(raceContext);
-        Neat neat = createNEAT(evaluator, sensors.size());
-
-        Race race = new Race(neat, raceContext);
-        race.run();
     }
 
     private static Neat createNEAT(GenomeEvaluator evaluator, int inputs) {

@@ -2,6 +2,13 @@ package com.vadeen.race.game;
 
 import java.awt.*;
 
+/**
+ * A car is represented as at dot that has a speed and a rotation.
+ * We don't care about the size of the car, we only check if the point (center of the car) is within the bounds of the
+ * track.
+ *
+ * @todo Remove gui stuff from here.
+ */
 public class Car {
     private static final float ACCELERATION = 1.5f;
     private static final float TURN_SPEED = 0.1f;
