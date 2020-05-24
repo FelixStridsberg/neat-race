@@ -1,11 +1,10 @@
 package com.vadeen.race.game;
 
-import com.vadeen.race.io.TrackLoader;
 import com.vadeen.race.io.TrackDefinition;
 
 import java.awt.*;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Track {
@@ -17,8 +16,7 @@ public class Track {
     private final List<Car> cars = new ArrayList<>();
 
     public static Track fromResources(String name) throws IOException {
-        TrackLoader trackLoader = new TrackLoader();
-        TrackDefinition trackDefinition = trackLoader.loadDefinition(name);
+        TrackDefinition trackDefinition = TrackDefinition.fromResource(name);
         Image background = trackDefinition.getBackground();
         Polygon bounds = trackDefinition.getBounds();
         List<Checkpoint> checkpoints = trackDefinition.getCheckpoints();
