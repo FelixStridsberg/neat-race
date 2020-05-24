@@ -32,7 +32,7 @@ public class ResourceLoader {
         InputStream stream = classLoader.getResourceAsStream(resourcePath + fileName);
 
         if (stream == null)
-            throw new IOException("Unable to load resource 'tracks/" + fileName + "'.");
+            throw new IOException("Unable to load resource '" + fileName + "'.");
 
         return stream;
     }

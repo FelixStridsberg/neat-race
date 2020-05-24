@@ -8,22 +8,14 @@ import com.vadeen.neat.species.SpeciesFactory;
 import com.vadeen.race.game.RaceContext;
 import com.vadeen.race.game.Sensor;
 import com.vadeen.race.game.Track;
+import com.vadeen.race.io.Settings;
 import com.vadeen.race.neat.GenomeEvaluator;
 import com.vadeen.race.neat.Visualizer;
 
-import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.List;
 
 public class Race {
-
-    private static final List<Sensor> SENSORS = Arrays.asList(
-            new Sensor(1.2f),
-            new Sensor(0.8f), new Sensor(0.0f), new Sensor(-0.8f),
-            new Sensor(-1.2f)
-    );
-
     private final Neat neat;
     private final RaceContext raceContext;
 
@@ -41,18 +33,21 @@ public class Race {
     }
 
     public static void main(String[] args) throws IOException {
+        Settings settings = Settings.fromResources();
+        List<Sensor> sensors = settings.getSensors();
+
         Track track = Track.fromResources("pecker");
-        RaceContext raceContext = new RaceContext(track, SENSORS);
+        RaceContext raceContext = new RaceContext(track, sensors);
 
         GenomeEvaluator evaluator = new GenomeEvaluator(raceContext);
-        Neat neat = createNEAT(evaluator);
+        Neat neat = createNEAT(evaluator, sensors.size());
 
         Race race = new Race(neat, raceContext);
         race.run();
     }
 
-    private static Neat createNEAT(GenomeEvaluator evaluator) {
-        Neat neat = Neat.create(evaluator, SENSORS.size(), 2);
+    private static Neat createNEAT(GenomeEvaluator evaluator, int inputs) {
+        Neat neat = Neat.create(evaluator, inputs, 2);
 
         neat.getGenerationFactory().setPopulationSize(50);
 
