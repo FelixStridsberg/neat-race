@@ -70,5 +70,4 @@ public class Race {
 
         return neat;
     }
-
 }
