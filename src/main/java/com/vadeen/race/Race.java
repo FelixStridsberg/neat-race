@@ -33,7 +33,7 @@ public class Race {
         Neat neat = createNEAT(evaluator, sensors.size());
 
         Race race = new Race(neat, raceContext);
-        race.run();
+        race.run(settings);
     }
 
     private Race(Neat neat, RaceContext raceContext) {
@@ -41,8 +41,10 @@ public class Race {
         this.raceContext = raceContext;
     }
 
-    private void run() {
+    private void run(Settings settings) {
         TrackPanel tp = new TrackPanel(raceContext);
+        tp.setDebugTrack(settings.isDebugTrack());
+
         RaceVisualizer visualizer = new RaceVisualizer(raceContext);
 
         NeatGui gui = new NeatGui(neat, visualizer, tp);

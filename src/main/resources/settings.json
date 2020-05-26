@@ -1,5 +1,6 @@
 {
   "trackName": "pecker",
+  "debugTrack": false,
   "sensors": [
     1.2,
     0.8,

@@ -16,6 +16,8 @@ public class TrackPanel extends VisualPanel {
     private final CarPainter carPainter = new CarPainter();
     private final DebugPainter debugPainter = new DebugPainter();
 
+    private boolean paintDebug = false;
+
     public TrackPanel(RaceContext context) {
         super();
         this.context = context;
@@ -32,7 +34,8 @@ public class TrackPanel extends VisualPanel {
         scaleContext(g2);
         paintBackground(g2);
 
-        debugPainter.paint(g2, context);
+        if (paintDebug)
+            debugPainter.paint(g2, context);
 
         List<Car> cars = context.getTrack().getCars();
         carPainter.paint(g2, cars);
@@ -45,5 +48,9 @@ public class TrackPanel extends VisualPanel {
     private void scaleContext(Graphics2D g2) {
         float scale = getWidth()/800.0f;
         g2.scale(scale, scale);
+    }
+
+    public void setDebugTrack(boolean debug) {
+        paintDebug = debug;
     }
 }
