@@ -76,6 +76,18 @@ public class Track {
         return cars;
     }
 
+    public Car getBestCar() {
+        if (cars.isEmpty())
+            return null;
+
+        Car best = cars.get(0);
+        for (Car car : cars) {
+            if (car.getFitness() > best.getFitness())
+                best = car;
+        }
+        return best;
+    }
+
     public Image getBackground() {
         return background;
     }
@@ -86,5 +98,9 @@ public class Track {
 
     public CarPosition getStartPosition() {
         return new CarPosition(startPosition);
+    }
+
+    public List<Checkpoint> getCheckpoints() {
+        return checkpoints;
     }
 }

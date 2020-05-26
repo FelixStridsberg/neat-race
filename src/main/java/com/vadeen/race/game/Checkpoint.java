@@ -21,6 +21,10 @@ public class Checkpoint extends Point {
         return Math.hypot(dx, dy) <= size/2;
     }
 
+    public float getSize() {
+        return size;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

@@ -14,6 +14,7 @@ public class TrackPanel extends VisualPanel {
 
     private final RaceContext context;
     private final CarPainter carPainter = new CarPainter();
+    private final DebugPainter debugPainter = new DebugPainter();
 
     public TrackPanel(RaceContext context) {
         super();
@@ -30,6 +31,8 @@ public class TrackPanel extends VisualPanel {
         Graphics2D g2 = (Graphics2D)g;
         scaleContext(g2);
         paintBackground(g2);
+
+        debugPainter.paint(g2, context);
 
         List<Car> cars = context.getTrack().getCars();
         carPainter.paint(g2, cars);

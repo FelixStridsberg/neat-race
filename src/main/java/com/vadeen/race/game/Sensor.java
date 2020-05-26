@@ -30,4 +30,8 @@ public class Sensor {
 
         return 1000;
     }
+
+    public float getRotation() {
+        return rotation;
+    }
 }

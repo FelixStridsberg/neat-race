@@ -43,6 +43,10 @@ public class RaceContext {
         return carProperties;
     }
 
+    public List<Sensor> getSensors() {
+        return sensors;
+    }
+
     public List<Float> getSensorValues(Car car) {
         List<Float> values = new ArrayList<>();
 
