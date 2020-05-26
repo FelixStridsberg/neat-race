@@ -1,4 +1,4 @@
-package com.vadeen.race.gui;
+package com.vadeen.race;
 
 import com.vadeen.neat.Neat;
 import com.vadeen.neat.genome.GenomeComparator;
@@ -9,6 +9,7 @@ import com.vadeen.race.game.CarProperties;
 import com.vadeen.race.game.RaceContext;
 import com.vadeen.race.game.Sensor;
 import com.vadeen.race.game.Track;
+import com.vadeen.race.gui.TrackPanel;
 import com.vadeen.race.io.Settings;
 import com.vadeen.race.neat.GenomeEvaluator;
 import com.vadeen.race.neat.RaceVisualizer;

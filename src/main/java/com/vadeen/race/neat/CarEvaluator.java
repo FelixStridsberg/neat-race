@@ -42,7 +42,9 @@ public class CarEvaluator {
         genome.setFitness(car.getFitness());
 
         if (progress)
-            car.progress();
+            car.resetNoProgressCount();
+        else
+            car.increaseNoProgressCount();
 
         return progress;
     }

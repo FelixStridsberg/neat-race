@@ -52,7 +52,7 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainClass>com.vadeen.race.gui.Race</mainClass>
+                            <mainClass>com.vadeen.race.Race</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>

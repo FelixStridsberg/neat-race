@@ -29,7 +29,7 @@ public class RaceContext {
 
     public boolean updateCar(Car car) {
         float startFitness = car.getFitness();
-        car.update();
+        car.updatePosition();
         track.update(car);
 
         return car.getFitness() > startFitness;

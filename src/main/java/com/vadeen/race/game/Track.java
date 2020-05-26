@@ -14,26 +14,54 @@ import java.util.List;
  */
 public class Track {
 
-    private final Image background;
     private final Polygon bounds;
     private final List<Checkpoint> checkpoints;
     private final CarPosition startPosition;
+    private final Image background;
     private final List<Car> cars = new ArrayList<>();
 
     public static Track fromResources(String name) throws IOException {
         TrackDefinition trackDefinition = TrackDefinition.fromResource(name);
-        Image background = trackDefinition.getBackground();
-        CarPosition startPosition = trackDefinition.getStartPosition();
+
         Polygon bounds = trackDefinition.getBounds();
         List<Checkpoint> checkpoints = trackDefinition.getCheckpoints();
-        return new Track(background, startPosition, bounds, checkpoints);
+        CarPosition startPosition = trackDefinition.getStartPosition();
+        Image background = trackDefinition.getBackground();
+        return new Track(bounds, checkpoints, startPosition, background);
     }
 
-    public Track(Image background, CarPosition startPosition, Polygon bounds, List<Checkpoint> checkpoints) {
+    public Track(Polygon bounds, List<Checkpoint> checkpoints, CarPosition startPosition, Image background) {
         this.background = background;
         this.startPosition = startPosition;
         this.bounds = bounds;
         this.checkpoints = checkpoints;
+    }
+
+    public void update(Car car) {
+        car.updatePosition();
+
+        if (!bounds.contains(car.getPosition())) {
+            car.setCrashed(true);
+            return;
+        }
+
+        updateCheckpoint(car);
+    }
+
+    private void updateCheckpoint(Car car) {
+        int checkpointIndex = car.getCurrentCheckpoint();
+
+        Checkpoint checkpoint = checkpoints.get(checkpointIndex);
+        if (checkpoint.contains(car.getPosition()))
+            return;
+
+        int nextCheckpointIndex = (checkpointIndex + 1) % checkpoints.size();
+        Checkpoint nextCheckpoint = checkpoints.get(nextCheckpointIndex);
+
+        if (nextCheckpoint.contains(car.getPosition())) {
+            car.addFitness();
+            car.setCurrentCheckpoint(nextCheckpointIndex);
+        }
     }
 
     public void addCar(Car car) {
@@ -46,35 +74,6 @@ public class Track {
 
     public List<Car> getCars() {
         return cars;
-    }
-
-    public void update(Car c) {
-        c.update();
-
-        // Outside track.
-        if (!bounds.contains(c.getPosition())) {
-            c.setCrashed(true);
-        }
-
-        // TODO clean up this shit.
-        int current = c.getCurrentCheckpoint();
-        Checkpoint cp = checkpoints.get(current);
-        if (!cp.contains(c.getPosition())) {
-            Checkpoint nextCp;
-            if (current == checkpoints.size() - 1)
-                nextCp = checkpoints.get(0);
-            else
-                nextCp = checkpoints.get(current + 1);
-
-            if (nextCp.contains(c.getPosition())) {
-                c.addFitness();
-                if (current == checkpoints.size() - 1)
-                    c.setCheckpoint(0);
-                else
-                    c.setCheckpoint(current + 1);
-            }
-
-        }
     }
 
     public Image getBackground() {

@@ -6,24 +6,59 @@ import java.awt.*;
  * A car is represented as a dot that has a speed and a rotation.
  * We don't care about the size of the car, we only check if the point (center of the car) is within the bounds of the
  * track.
- *
- * @todo Remove gui stuff from here.
  */
 public class Car {
-    private final Color color;
     private final CarProperties properties;
     private final CarPosition position;
+    private final Color color;
 
+    private float speed = 0.0f;
+    private int currentCheckpoint = 0;
     private boolean crashed = false;
     private float fitness = 0.0f;
-    private float speed = 0.0f;
-    private int checkpoint = 0;
-    private int lastProgress = 0;
+    private int noProgressCount = 0;
 
-    public Car(Color color, CarPosition position, CarProperties properties) {
-        this.color = color;
-        this.position = position;
+    public Car(CarProperties properties, CarPosition position, Color color) {
         this.properties = properties;
+        this.position = position;
+        this.color = color;
+    }
+
+    public void updatePosition() {
+        if (crashed)
+            return;
+
+        float rotation = position.getRotation();
+        float dx = (float)(speed * Math.cos(rotation));
+        float dy = (float)(speed * Math.sin(rotation));
+
+        position.addX(dx);
+        position.addY(dy);
+    }
+
+    public void accelerate(double value) {
+        speed += properties.getAcceleration() * value;
+        speed = Math.min(speed, properties.getMaxSpeed());
+        speed = Math.max(speed, 0);         // Do not allow reverse
+    }
+
+    public void turn(double value) {
+        if (speed < 0.1)
+            return;
+
+        position.addRotation((float)(properties.getTurnSpeed() * value));
+    }
+
+    public void increaseNoProgressCount() {
+        noProgressCount++;
+    }
+
+    public void resetNoProgressCount() {
+        noProgressCount = 0;
+    }
+
+    public int getNoProgressCount() {
+        return noProgressCount;
     }
 
     public Color getColor() {
@@ -31,11 +66,11 @@ public class Car {
     }
 
     public int getCurrentCheckpoint() {
-        return checkpoint;
+        return currentCheckpoint;
     }
 
-    public void setCheckpoint(int checkpoint) {
-        this.checkpoint = checkpoint;
+    public void setCurrentCheckpoint(int currentCheckpoint) {
+        this.currentCheckpoint = currentCheckpoint;
     }
 
     public float getFitness() {
@@ -60,40 +95,5 @@ public class Car {
 
     public boolean isCrashed() {
         return crashed;
-    }
-
-    public void accelerate(double value) {
-        speed += properties.getAcceleration() * value;
-        speed = Math.min(speed, properties.getMaxSpeed());
-        speed = Math.max(speed, 0);         // Do not allow reverse
-    }
-
-    public void turn(double value) {
-        if (speed < 0.1)
-            return;
-
-        position.addRotation((float)(properties.getTurnSpeed() * value));
-    }
-
-    public void update() {
-        if (crashed)
-            return;
-
-        float rotation = position.getRotation();
-        float dx = (float)(speed * Math.cos(rotation));
-        float dy = (float)(speed * Math.sin(rotation));
-
-        position.addX(dx);
-        position.addY(dy);
-
-        lastProgress++;
-    }
-
-    public void progress() {
-        lastProgress = 0;
-    }
-
-    public int getLastProgress() {
-        return lastProgress;
     }
 }

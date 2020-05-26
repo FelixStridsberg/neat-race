@@ -51,7 +51,7 @@ public class RaceEvaluator {
             if (carEvaluator.evaluate())
                 progress = true;
 
-            if (carEvaluator.getCar().getLastProgress() > MAX_TICKS_WITH_NO_PROGRESS)
+            if (carEvaluator.getCar().getNoProgressCount() > MAX_TICKS_WITH_NO_PROGRESS)
                 carEvaluator.getCar().setCrashed(true);
         }
 
@@ -66,7 +66,7 @@ public class RaceEvaluator {
             Color speciesColor = Gui.colorOfId(s.getId());
 
             for (Genome g : s.getGenomes()) {
-                Car car = new Car(speciesColor, raceContext.getTrack().getStartPosition(), raceContext.getCarProperties());
+                Car car = new Car(raceContext.getCarProperties(), raceContext.getTrack().getStartPosition(), speciesColor);
                 GenomePropagator propagator = new GenomePropagator(g);
                 CarEvaluator carEvaluator = new CarEvaluator(raceContext, car, g, propagator);
 

@@ -7,10 +7,10 @@ Using [NEAT GUI](https://github.com/FelixStridsberg/neat-gui) for visualizing th
 # Compile and run
 
 #### Unix/Linux/Mac
-`./mvnw clean compile exec:java -Dexec.mainClass=com.vadeen.race.gui.Race`
+`./mvnw clean compile exec:java -Dexec.mainClass=com.vadeen.race.Race`
 
 #### Windows
-`mvnw.cmd clean compile exec:java -Dexec.mainClass=com.vadeen.race.gui.Race`
+`mvnw.cmd clean compile exec:java -Dexec.mainClass=com.vadeen.race.Race`
 
 
 ## Screenshot
